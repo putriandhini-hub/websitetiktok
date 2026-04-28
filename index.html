@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>TikTok Clone</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: black;
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+}
+
+/* Container */
+.container {
+    height: 100vh;
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+}
+
+/* Each video */
+.video {
+    height: 100vh;
+    position: relative;
+    scroll-snap-align: start;
+}
+
+/* Video style */
+video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Left info */
+.info {
+    position: absolute;
+    bottom: 60px;
+    left: 15px;
+    color: white;
+}
+
+.info h3 {
+    margin-bottom: 5px;
+}
+
+/* Right icons */
+.actions {
+    position: absolute;
+    right: 10px;
+    bottom: 80px;
+    color: white;
+    text-align: center;
+    font-size: 20px;
+}
+
+.actions div {
+    margin: 15px 0;
+    cursor: pointer;
+}
+
+/* Top bar */
+.top-bar {
+    position: fixed;
+    top: 10px;
+    width: 100%;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    z-index: 10;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="top-bar">For You</div>
+
+<div class="container" id="container">
+
+    <!-- VIDEO 1 -->
+    <div class="video">
+        <video src="video1.mp4" muted loop></video>
+
+        <div class="info">
+            <h3>@user1</h3>
+            <p>Ini video pertama 🔥</p>
+        </div>
+
+        <div class="actions">
+            <div onclick="like(this)">❤️<br><span>0</span></div>
+            <div>💬</div>
+            <div>🔗</div>
+        </div>
+    </div>
+
+    <!-- VIDEO 2 -->
+    <div class="video">
+        <video src="video2.mp4" muted loop></video>
+
+        <div class="info">
+            <h3>@user2</h3>
+            <p>Video kedua 😎</p>
+        </div>
+
+        <div class="actions">
+            <div onclick="like(this)">❤️<br><span>0</span></div>
+            <div>💬</div>
+            <div>🔗</div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+const videos = document.querySelectorAll("video");
+
+function playVideo() {
+    let index = Math.round(
+        document.getElementById("container").scrollTop / window.innerHeight
+    );
+
+    videos.forEach((vid, i) => {
+        if (i === index) {
+            vid.play();
+        } else {
+            vid.pause();
+        }
+    });
+}
+
+document.getElementById("container").addEventListener("scroll", playVideo);
+
+// Like button
+function like(el) {
+    let count = el.querySelector("span");
+    count.innerText = parseInt(count.innerText) + 1;
+}
+</script>
+
+</body>
+</html>
